@@ -132,6 +132,7 @@ function dataService(StorageService, $http, $q) {
         let index = 0;
         let output = [];
         asyncEach(Array(20000), entry => {
+            console.log('iteration');
             let minX = Math.ceil(-70);
             let maxX = Math.floor(40);
             let minY = Math.ceil(-60);
@@ -140,6 +141,7 @@ function dataService(StorageService, $http, $q) {
             let randomY = Math.random() * (maxY - minY) + minY;
             output.push([randomX, randomY]);
         }, () => {
+            console.log('done generating');
             deferred.resolve({
                 data: output
             });
