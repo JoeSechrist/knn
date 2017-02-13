@@ -53,8 +53,15 @@ function testingService($q, StorageService, DataService, ViewerService) {
         var deferred = $q.defer();
         let workerCount = Math.ceil(data.length / 50000);
         let workersFinished = 0;
+        let workerUrl = '';
+        if (window.location.href.split('github').length > 1) {
+            workerUrl = window.location.href + 'dist/prepare.worker.js'
+        } else {
+            let baseUrl = window.location.href.split('knn')[0];
+            workerUrl = baseUrl + 'prepare.worker.js'
+        }
         while (data.length) {
-            let worker = new Worker('../dist/prepare.worker.js');
+            let worker = new Worker(workerUrl);
             let inputAB = new Float32Array(data.splice(0, 50000)).buffer;
             worker.postMessage(inputAB, [inputAB]);
             worker.onmessage = (evt) => {
@@ -78,13 +85,20 @@ function testingService($q, StorageService, DataService, ViewerService) {
         var deferred = $q.defer();
         let workerCount = Math.ceil(StorageService.preparedQD.length / 50000);
         let workersFinished = 0;
+        let workerUrl = '';
+        if (window.location.href.split('github').length > 1) {
+            workerUrl = window.location.href + 'dist/neighbors.worker.js'
+        } else {
+            let baseUrl = window.location.href.split('knn')[0];
+            workerUrl = baseUrl + 'neighbors.worker.js'
+        }  
         if (StorageService.preparedQD.length) {
             createWorker();
         } else {
             deferred.resolve();
         }
         function createWorker() {
-            let worker = new Worker('../dist/neighbors.worker.js');
+            let worker = new Worker(workerUrl);
             worker.postMessage({
                 testData: StorageService.preparedTD,
                 queryData: StorageService.preparedQD.splice(0, 50000)
