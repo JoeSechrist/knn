@@ -13,7 +13,7 @@ function dataService(StorageService, $http, $q) {
         // generateTestData: generateTestData,
         getTestData: getTestData,
         // generateQueryData: generateQueryData,
-        // getQueryData: getQueryData,
+        getQueryData: getQueryData,
         generateData: generateData,
         asyncEach: asyncEach,
         // ab2str: ab2str,
