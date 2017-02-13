@@ -95,6 +95,8 @@ function dataService(StorageService, $http, $q) {
             deferred.resolve(response);
         }, function (response) {
             console.log('failure: ', response);
+            console.log('generating test data');
+            generateTestData();
         });
         return deferred.promise;
     }
@@ -114,6 +116,8 @@ function dataService(StorageService, $http, $q) {
             deferred.resolve(response);
         }, function (response) {
             console.log('failure: ', response);
+            console.log('generating query data');
+            generateQueryData();
         });
         return deferred.promise;
     }
