@@ -84,7 +84,7 @@ function dataService(StorageService, $http, $q) {
         let deferred = $q.defer();
         let url;
         if (window.location.href.split('github').length) {
-            url = 'https://joesechrist.github.io/knn/dist/testData.txt';
+            url = '../dist/testData.txt';
         } else {
             url = './testData.txt';
         }        
@@ -103,7 +103,7 @@ function dataService(StorageService, $http, $q) {
         let deferred = $q.defer();
         let url;
         if (window.location.href.split('github').length) {
-            url = 'https://joesechrist.github.io/knn/dist/queryData.txt';
+            url = '../dist/queryData.txt';
         } else {
             url = './queryData.txt';
         }
