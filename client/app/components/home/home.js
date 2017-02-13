@@ -13,7 +13,7 @@ let homeModule = angular.module('home', [
 
   $stateProvider
     .state('home', {
-      url: '/knn',
+      url: '/knn/',
       component: 'home'
     });
 })
