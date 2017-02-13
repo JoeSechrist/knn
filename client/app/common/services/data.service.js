@@ -84,14 +84,14 @@ function dataService(StorageService, $http, $q) {
     function getTestData() {
         let deferred = $q.defer();
         let url;
-        if (window.location.href.split('github').length) {
+        if (window.location.href.split('github').length > 1) {
             url = '../knn/dist/testData.txt';
         } else {
             url = './testData.txt';
         }        
         $http({
             method: 'GET',
-            url: './testData.txt'
+            url: url,
         }).then(function (response) {
             deferred.resolve(response);
         }, function (response) {
@@ -107,7 +107,7 @@ function dataService(StorageService, $http, $q) {
     function getQueryData() {
         let deferred = $q.defer();
         let url;
-        if (window.location.href.split('github').length) {
+        if (window.location.href.split('github').length > 1) {
             url = '../knn/dist/queryData.txt';
         } else {
             url = './queryData.txt';
@@ -131,8 +131,8 @@ function dataService(StorageService, $http, $q) {
         let deferred = $q.defer();
         let index = 0;
         let output = [];
-        asyncEach(Array(20000), entry => {
-            console.log('iteration');
+        let runBlock = Array(20000).fill(1)
+        asyncEach(runBlock, entry => {
             let minX = Math.ceil(-70);
             let maxX = Math.floor(40);
             let minY = Math.ceil(-60);
