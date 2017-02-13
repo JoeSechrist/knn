@@ -54,7 +54,7 @@ function testingService($q, StorageService, DataService, ViewerService) {
         let workerCount = Math.ceil(data.length / 50000);
         let workersFinished = 0;
         while (data.length) {
-            let worker = new Worker('./prepare.worker.js');
+            let worker = new Worker('../dist/prepare.worker.js');
             let inputAB = new Float32Array(data.splice(0, 50000)).buffer;
             worker.postMessage(inputAB, [inputAB]);
             worker.onmessage = (evt) => {
@@ -84,7 +84,7 @@ function testingService($q, StorageService, DataService, ViewerService) {
             deferred.resolve();
         }
         function createWorker() {
-            let worker = new Worker('./neighbors.worker.js');
+            let worker = new Worker('../dist/neighbors.worker.js');
             worker.postMessage({
                 testData: StorageService.preparedTD,
                 queryData: StorageService.preparedQD.splice(0, 50000)
