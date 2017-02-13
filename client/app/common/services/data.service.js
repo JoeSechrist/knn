@@ -84,13 +84,13 @@ function dataService(StorageService, $http, $q) {
         let deferred = $q.defer();
         let url;
         if (window.location.href.split('github').length) {
-            url = '../dist/testData.txt';
+            url = '../knn/dist/testData.txt';
         } else {
             url = './testData.txt';
         }        
         $http({
             method: 'GET',
-            url: url
+            url: './testData.txt'
         }).then(function (response) {
             deferred.resolve(response);
         }, function (response) {
@@ -103,7 +103,7 @@ function dataService(StorageService, $http, $q) {
         let deferred = $q.defer();
         let url;
         if (window.location.href.split('github').length) {
-            url = '../dist/queryData.txt';
+            url = '../knn/dist/queryData.txt';
         } else {
             url = './queryData.txt';
         }
