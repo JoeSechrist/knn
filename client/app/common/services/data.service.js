@@ -10,10 +10,11 @@ function dataService(StorageService, $http, $q) {
     'ngInject';
 
     let service = {
-        generateTestData: generateTestData,
+        // generateTestData: generateTestData,
         getTestData: getTestData,
-        generateQueryData: generateQueryData,
-        getQueryData: getQueryData,
+        // generateQueryData: generateQueryData,
+        // getQueryData: getQueryData,
+        generateData: generateData,
         asyncEach: asyncEach,
         // ab2str: ab2str,
         // str2ab: str2ab
@@ -96,7 +97,9 @@ function dataService(StorageService, $http, $q) {
         }, function (response) {
             console.log('failure: ', response);
             console.log('generating test data');
-            generateTestData();
+            generateData().then(data => {
+                deferred.resolve(data);
+            });
         });
         return deferred.promise;
     }
@@ -117,38 +120,46 @@ function dataService(StorageService, $http, $q) {
         }, function (response) {
             console.log('failure: ', response);
             console.log('generating query data');
-            generateQueryData();
+            generateData().then(data => {
+                deferred.resolve(data);
+            });
         });
         return deferred.promise;
     }
 
-    function generateTestData() {
+    function generateData() {
+        let deferred = $q.defer();
         let index = 0;
-        while (index !== 200000) {
+        let output = [];
+        asyncEach(Array(20000), entry => {
             let minX = Math.ceil(-70);
             let maxX = Math.floor(40);
             let minY = Math.ceil(-60);
             let maxY = Math.floor(60);
             let randomX = Math.random() * (maxX - minX) + minX;
             let randomY = Math.random() * (maxY - minY) + minY;
-            StorageService.td.push([randomX, randomY]);
-            index++;
-        }
+            output.push([randomX, randomY]);
+        }, () => {
+            deferred.resolve({
+                data: output
+            });
+        });
+        return deferred.promise;
     }
 
-    function generateQueryData() {
-        let index = 0;
-        while (index !== 200000) {
-            let minX = Math.ceil(-70);
-            let maxX = Math.floor(40);
-            let minY = Math.ceil(-60);
-            let maxY = Math.floor(60);
-            let randomX = Math.random() * (maxX - minX) + minX;
-            let randomY = Math.random() * (maxY - minY) + minY;
-            StorageService.qd.push([randomX, randomY]);
-            index++;
-        }
-    }
+    // function generateQueryData() {
+    //     let index = 0;
+    //     while (index !== 200000) {
+    //         let minX = Math.ceil(-70);
+    //         let maxX = Math.floor(40);
+    //         let minY = Math.ceil(-60);
+    //         let maxY = Math.floor(60);
+    //         let randomX = Math.random() * (maxX - minX) + minX;
+    //         let randomY = Math.random() * (maxY - minY) + minY;
+    //         StorageService.qd.push([randomX, randomY]);
+    //         index++;
+    //     }
+    // }
 }
 
 export default dataModule;
