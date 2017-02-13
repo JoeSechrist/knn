@@ -90,7 +90,7 @@ function dataService(StorageService, $http, $q) {
         }        
         $http({
             method: 'GET',
-            url: './testData.txt'
+            url: url
         }).then(function (response) {
             deferred.resolve(response);
         }, function (response) {
