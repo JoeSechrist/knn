@@ -4,43 +4,24 @@ let viewerModule = angular.module('ViewerService', [])
 
 function viewerService() {
     'ngInject';
-    let streetMap = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
     let service = {
-        map: L.map('map', {
-            center: [39.73, -104.99],
-            zoom: 10,
-            layers: [streetMap]
-        }),
-        baseMaps: {
-            "Base": streetMap,
-        },
+        map: L.map('map').setView([9.977005492196, -14.589843750000002], 4),
         populateMap: populateMap
     }
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        maxZoom: 18,
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        id: 'mapbox.light'
+    }).addTo(service.map);
+
+    window.service = service;
     return service;
 
     function populateMap(data) {
-        console.log('adding to map');
-        let markerList = [];
-        let markers = L.markerClusterGroup({
-            chunkedLoading: true,
-            zoomToBoundsOnClick: false
-        });
-        for (let entry in data) {
-            let latLng = entry.split(':');
-            let marker = L.marker(L.latLng(latLng[0], latLng[1]), {
-                icon: L.divIcon({ className: 'queryIcon' })
-            });
-            markerList.push(marker);
-            data[entry].forEach(coords => {
-                let marker = L.marker(L.latLng(coords[0], coords[1]));
-                markerList.push(marker);
-            });
-        }
-        markers.addLayers(markerList);
-        service.map.addLayer(markers);
+        console.log(data);
+        L.geoJSON(data).addTo(service.map);
     }
 }
 

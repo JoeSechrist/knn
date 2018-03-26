@@ -13,6 +13,7 @@ module.exports = {
   // },
   module: {
     loaders: [
+      { test: /\.json$/, loader: "json-loader" },
       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'ng-annotate!babel' },
       { test: /\.html$/, loader: 'raw' },
       { test: /\.(scss|sass)$/, loader: 'style!css!sass' },
@@ -28,17 +29,19 @@ module.exports = {
       {
         from: 'client/app/common/workers/*.worker.js',
         to: '[name].[ext]'
-      }, {
-        from: 'node_modules/turf/turf.min.js',
-        to: 'turf.min.js'
-      }, {
+      },
+      // {
+      //   from: 'node_modules/@turf/turf/turf.min.js',
+      //   to: 'turf.min.js'
+      // }, 
+      {
         from: 'node_modules/rbush/rbush.min.js',
         to: 'rbush.min.js'
       }, {
         from: 'client/app/common/vendor/*.js',
         to: '[name].js'
       }, {
-        from : 'client/app/common/data/*.txt',
+        from : 'client/app/common/data/*.*',
         to: '[name].[ext]'
       }
     ]),

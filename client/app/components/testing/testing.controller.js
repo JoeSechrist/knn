@@ -5,10 +5,11 @@ class TestingController {
 
         this.TestingService = TestingService;
         this.$q = $q;
+        this.count = 10;
     }
 
     getData() {
-        this.TestingService.getData();
+        this.TestingService.getData(this.count);
     }
 }
 

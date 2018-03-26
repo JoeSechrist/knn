@@ -12,7 +12,7 @@ self.onmessage = (evt) => {
         let neighbors = knn(tree, testPoint.minX, -testPoint.minY, 50);
         let outputArray = [];
         neighbors.forEach(neighbor => {
-            if (checkClosestPoints([testPoint.minX, testPoint.minY], neighbor, 5000)) {
+            if (checkClosestPoints([testPoint.minX, testPoint.minY], neighbor, 5)) {
                 outputArray.push(neighbor.minX, neighbor.minY);
             }
         });

@@ -1,5 +1,4 @@
 import angular from 'angular';
-import turf from 'turf';
 import FileSaver from 'file-saver';
 
 let dataModule = angular.module('DataService', [])
